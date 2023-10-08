@@ -5,11 +5,12 @@ import com.joaolucas.hospitalJJ.models.enums.Role;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
 @DiscriminatorValue("admin")
-public class Admin extends User{
+public class Admin extends User implements Serializable{
     public Admin() {
         setRole(Role.ADMIN);
     }

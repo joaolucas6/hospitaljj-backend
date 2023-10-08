@@ -3,12 +3,13 @@ package com.joaolucas.hospitalJJ.models.entities;
 import com.joaolucas.hospitalJJ.models.enums.Status;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Table(name = "tb_solicitacoes_consulta")
-public class SolicitacaoConsulta {
+public class SolicitacaoConsulta implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

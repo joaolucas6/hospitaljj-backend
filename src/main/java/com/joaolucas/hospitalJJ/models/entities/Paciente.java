@@ -6,6 +6,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("paciente")
-public class Paciente extends User{
+public class Paciente extends User implements Serializable {
     @OneToMany(mappedBy = "paciente")
     private List<Consulta> consultas = new ArrayList<>();
     @OneToMany(mappedBy = "paciente")

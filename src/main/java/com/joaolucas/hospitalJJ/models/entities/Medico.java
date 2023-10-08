@@ -4,6 +4,7 @@ import com.joaolucas.hospitalJJ.models.enums.Genero;
 import com.joaolucas.hospitalJJ.models.enums.Role;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @DiscriminatorValue("medico")
-public class Medico extends User {
+public class Medico extends User implements Serializable {
 
     @OneToMany(mappedBy = "medico")
     private List<Consulta> consultas = new ArrayList<>();
