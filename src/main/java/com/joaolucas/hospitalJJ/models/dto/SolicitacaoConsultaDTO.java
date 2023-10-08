@@ -1,6 +1,5 @@
 package com.joaolucas.hospitalJJ.models.dto;
 
-import com.joaolucas.hospitalJJ.models.entities.Especialidade;
 import com.joaolucas.hospitalJJ.models.entities.SolicitacaoConsulta;
 import com.joaolucas.hospitalJJ.models.enums.Status;
 

@@ -3,7 +3,6 @@ package com.joaolucas.hospitalJJ.models.dto;
 import com.joaolucas.hospitalJJ.models.entities.Consulta;
 import com.joaolucas.hospitalJJ.models.entities.Especialidade;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
-import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
