@@ -19,7 +19,6 @@ public class PacienteDTO {
     private String cpf;
     private Genero genero;
     private String email;
-    private String senha;
     private String numeroTelefone;
     private Role role;
     private List<Long> consultasId = new ArrayList<>();
@@ -37,7 +36,6 @@ public class PacienteDTO {
         setCpf(paciente.getCpf());
         setGenero(paciente.getGenero());
         setEmail(paciente.getEmail());
-        setSenha(paciente.getSenha());
         setNumeroTelefone(paciente.getNumeroTelefone());
         setRole(paciente.getRole());
         setConsultasId(paciente.getConsultas().stream().map(Consulta::getId).toList());
@@ -100,14 +98,6 @@ public class PacienteDTO {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public String getNumeroTelefone() {
         return numeroTelefone;
     }
@@ -145,12 +135,12 @@ public class PacienteDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PacienteDTO that = (PacienteDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(sobrenome, that.sobrenome) && Objects.equals(dataNascimento, that.dataNascimento) && Objects.equals(cpf, that.cpf) && genero == that.genero && Objects.equals(email, that.email) && Objects.equals(senha, that.senha) && Objects.equals(numeroTelefone, that.numeroTelefone) && role == that.role && Objects.equals(consultasId, that.consultasId) && Objects.equals(solicitacoesDeConsultaId, that.solicitacoesDeConsultaId);
+        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(sobrenome, that.sobrenome) && Objects.equals(dataNascimento, that.dataNascimento) && Objects.equals(cpf, that.cpf) && genero == that.genero && Objects.equals(email, that.email) && Objects.equals(numeroTelefone, that.numeroTelefone) && role == that.role && Objects.equals(consultasId, that.consultasId) && Objects.equals(solicitacoesDeConsultaId, that.solicitacoesDeConsultaId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, sobrenome, dataNascimento, cpf, genero, email, senha, numeroTelefone, role, consultasId, solicitacoesDeConsultaId);
+        return Objects.hash(id, nome, sobrenome, dataNascimento, cpf, genero, email, numeroTelefone, role, consultasId, solicitacoesDeConsultaId);
     }
 
     @Override
@@ -163,7 +153,6 @@ public class PacienteDTO {
                 ", cpf='" + cpf + '\'' +
                 ", genero=" + genero +
                 ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
                 ", numeroTelefone='" + numeroTelefone + '\'' +
                 ", role=" + role +
                 ", consultasId=" + consultasId +
