@@ -16,7 +16,7 @@ public class Medico extends User {
     @OneToMany(mappedBy = "medico")
     private List<Consulta> consultas = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "medicos")
     private List<Especialidade> especialidades = new ArrayList<>();
 
     @Column(name = "numero_registro")
