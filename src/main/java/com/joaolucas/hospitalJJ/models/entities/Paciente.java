@@ -20,10 +20,12 @@ public class Paciente extends User{
     private List<SolicitacaoConsulta> solicitacoesDeConsulta = new ArrayList<>();
 
     public Paciente() {
+        setRole(Role.PACIENTE);
     }
 
     public Paciente(Long id, String nome, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String email, String senha, String numeroTelefone, Role role, List<Consulta> consultas, List<SolicitacaoConsulta> solicitacoesDeConsulta) {
         super(id, nome, sobrenome, dataNascimento, cpf, genero, email, senha, numeroTelefone, role);
+        setRole(Role.PACIENTE);
     }
 
     public List<Consulta> getConsultas() {

@@ -26,6 +26,7 @@ public class Medico extends User {
     private List<SolicitacaoConsulta> solicitacoesConsulta = new ArrayList<>();
 
     public Medico() {
+        setRole(Role.MEDICO);
     }
 
     public Medico(String numeroRegistro) {
@@ -34,6 +35,7 @@ public class Medico extends User {
 
     public Medico(Long id, String nome, String sobrenome, LocalDate dataNascimento, String cpf, Genero genero, String email, String senha, String numeroTelefone, Role role, String numeroRegistro) {
         super(id, nome, sobrenome, dataNascimento, cpf, genero, email, senha, numeroTelefone, role);
+        setRole(Role.MEDICO);
         this.numeroRegistro = numeroRegistro;
     }
 
