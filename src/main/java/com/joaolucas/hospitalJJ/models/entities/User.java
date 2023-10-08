@@ -130,4 +130,19 @@ public abstract class User {
         this.role = role;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", sobrenome='" + sobrenome + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", cpf='" + cpf + '\'' +
+                ", genero=" + genero +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", numeroTelefone='" + numeroTelefone + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }
