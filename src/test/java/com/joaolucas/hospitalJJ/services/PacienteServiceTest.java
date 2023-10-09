@@ -1,8 +1,9 @@
-package com.joaolucas.hospitalJJ.models.services;
+package com.joaolucas.hospitalJJ.services;
 
 import com.joaolucas.hospitalJJ.models.dto.PacienteDTO;
 import com.joaolucas.hospitalJJ.models.entities.Paciente;
-import com.joaolucas.hospitalJJ.models.repositories.PacienteRepository;
+import com.joaolucas.hospitalJJ.repositories.PacienteRepository;
+import com.joaolucas.hospitalJJ.services.PacienteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

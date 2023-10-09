@@ -1,4 +1,4 @@
-package com.joaolucas.hospitalJJ.models.repositories;
+package com.joaolucas.hospitalJJ.repositories;
 
 import com.joaolucas.hospitalJJ.models.entities.SolicitacaoConsulta;
 import org.springframework.data.jpa.repository.JpaRepository;

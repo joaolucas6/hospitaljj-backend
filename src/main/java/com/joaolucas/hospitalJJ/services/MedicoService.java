@@ -1,8 +1,8 @@
-package com.joaolucas.hospitalJJ.models.services;
+package com.joaolucas.hospitalJJ.services;
 
 import com.joaolucas.hospitalJJ.models.dto.MedicoDTO;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
-import com.joaolucas.hospitalJJ.models.repositories.MedicoRepository;
+import com.joaolucas.hospitalJJ.repositories.MedicoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
