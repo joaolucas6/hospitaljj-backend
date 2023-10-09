@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class MedicoService {
-    
+
     private final MedicoRepository medicoRepository;
 
     public List<MedicoDTO> encontrarTodos(){
