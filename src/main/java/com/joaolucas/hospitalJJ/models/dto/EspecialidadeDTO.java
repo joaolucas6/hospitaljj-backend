@@ -3,6 +3,7 @@ package com.joaolucas.hospitalJJ.models.dto;
 import com.joaolucas.hospitalJJ.models.entities.Consulta;
 import com.joaolucas.hospitalJJ.models.entities.Especialidade;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
+import com.joaolucas.hospitalJJ.models.entities.SolicitacaoConsulta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,8 @@ public class EspecialidadeDTO {
     private List<Long> medicosId = new ArrayList<>();
     private List<Long> consultasId = new ArrayList<>();
 
+    private List<Long> solicitacoesConsultaId = new ArrayList<>();
+
     public EspecialidadeDTO() {
     }
 
@@ -24,6 +27,7 @@ public class EspecialidadeDTO {
         setDescricao(especialidade.getDescricao());
         setMedicosId(especialidade.getMedicos().stream().map(Medico::getId).toList());
         setConsultasId(especialidade.getConsultas().stream().map(Consulta::getId).toList());
+        setSolicitacoesConsultaId(especialidade.getSolicitacoesConsulta().stream().map(SolicitacaoConsulta::getId).toList());
     }
 
     public Long getId() {
@@ -66,17 +70,25 @@ public class EspecialidadeDTO {
         this.consultasId = consultasId;
     }
 
+    public List<Long> getSolicitacoesConsultaId() {
+        return solicitacoesConsultaId;
+    }
+
+    public void setSolicitacoesConsultaId(List<Long> solicitacoesConsultaId) {
+        this.solicitacoesConsultaId = solicitacoesConsultaId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EspecialidadeDTO that = (EspecialidadeDTO) o;
-        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(medicosId, that.medicosId) && Objects.equals(consultasId, that.consultasId);
+        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(medicosId, that.medicosId) && Objects.equals(consultasId, that.consultasId) && Objects.equals(solicitacoesConsultaId, that.solicitacoesConsultaId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descricao, medicosId, consultasId);
+        return Objects.hash(id, nome, descricao, medicosId, consultasId, solicitacoesConsultaId);
     }
 
     @Override
@@ -87,6 +99,7 @@ public class EspecialidadeDTO {
                 ", descricao='" + descricao + '\'' +
                 ", medicosId=" + medicosId +
                 ", consultasId=" + consultasId +
+                ", solicitacoesConsultaId=" + solicitacoesConsultaId +
                 '}';
     }
 }

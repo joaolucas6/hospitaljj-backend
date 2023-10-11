@@ -1,9 +1,10 @@
 package com.joaolucas.hospitalJJ.models.enums;
 
 public enum Status {
+    CONCLUIDO,
     CONFIRMADO,
     CANCELADO,
-    EM_ESPERA,
     ACEITO,
+    PENDENTE,
     NEGADO
 }

@@ -32,6 +32,9 @@ public class Especialidade implements Serializable {
     @OneToMany(mappedBy = "especialidade")
     private List<Consulta> consultas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "especialidade")
+    private List<SolicitacaoConsulta> solicitacoesConsulta = new ArrayList<>();
+
     public Especialidade(){}
 
     public Especialidade(Long id, String nome, String descricao) {
@@ -80,17 +83,12 @@ public class Especialidade implements Serializable {
         this.consultas = consultas;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Especialidade that = (Especialidade) o;
-        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(medicos, that.medicos) && Objects.equals(consultas, that.consultas);
+    public List<SolicitacaoConsulta> getSolicitacoesConsulta() {
+        return solicitacoesConsulta;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, nome, descricao, medicos, consultas);
+    public void setSolicitacoesConsulta(List<SolicitacaoConsulta> solicitacoesConsulta) {
+        this.solicitacoesConsulta = solicitacoesConsulta;
     }
 
     @Override
@@ -101,6 +99,20 @@ public class Especialidade implements Serializable {
                 ", descricao='" + descricao + '\'' +
                 ", medicos=" + medicos +
                 ", consultas=" + consultas +
+                ", solicitacoesConsulta=" + solicitacoesConsulta +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Especialidade that = (Especialidade) o;
+        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(medicos, that.medicos) && Objects.equals(consultas, that.consultas) && Objects.equals(solicitacoesConsulta, that.solicitacoesConsulta);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, descricao, medicos, consultas, solicitacoesConsulta);
     }
 }
