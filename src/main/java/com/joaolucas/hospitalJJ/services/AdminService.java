@@ -3,6 +3,7 @@ package com.joaolucas.hospitalJJ.services;
 import com.joaolucas.hospitalJJ.models.dto.AdminDTO;
 import com.joaolucas.hospitalJJ.models.entities.Admin;
 import com.joaolucas.hospitalJJ.repositories.AdminRepository;
+import com.joaolucas.hospitalJJ.utils.ValidacaoDeDados;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class AdminService {
     }
 
     public AdminDTO atualizar(Long id, AdminDTO adminDTO){
+        if(!ValidacaoDeDados.validarDadosDoUser(adminDTO)) throw new RuntimeException();
+
         Admin admin = adminRepository.findById(id).orElseThrow();
         if(adminDTO.getNome() != null) admin.setNome(adminDTO.getNome());
         if(adminDTO.getSobrenome() != null) admin.setSobrenome(adminDTO.getSobrenome());

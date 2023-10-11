@@ -3,6 +3,7 @@ package com.joaolucas.hospitalJJ.services;
 import com.joaolucas.hospitalJJ.models.dto.MedicoDTO;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
 import com.joaolucas.hospitalJJ.repositories.MedicoRepository;
+import com.joaolucas.hospitalJJ.utils.ValidacaoDeDados;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class MedicoService {
     }
 
     public MedicoDTO atualizar(Long id, MedicoDTO medicoDTO){
+        if(!ValidacaoDeDados.validarDadosDoUser(medicoDTO)) throw new RuntimeException();
+
         Medico medico = medicoRepository.findById(id).orElseThrow();
         if(medicoDTO.getNome() != null) medico.setNome(medicoDTO.getNome());
         if(medicoDTO.getSobrenome() != null) medico.setSobrenome(medicoDTO.getSobrenome());

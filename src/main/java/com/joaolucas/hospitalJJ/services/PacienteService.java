@@ -3,6 +3,7 @@ package com.joaolucas.hospitalJJ.services;
 import com.joaolucas.hospitalJJ.models.dto.PacienteDTO;
 import com.joaolucas.hospitalJJ.models.entities.Paciente;
 import com.joaolucas.hospitalJJ.repositories.PacienteRepository;
+import com.joaolucas.hospitalJJ.utils.ValidacaoDeDados;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,8 @@ public class PacienteService {
     }
 
     public PacienteDTO atualizar(Long id, PacienteDTO pacienteDTO){
+        if(!ValidacaoDeDados.validarDadosDoUser(pacienteDTO)) throw new RuntimeException();
+
         Paciente paciente = pacienteRepository.findById(id).orElseThrow();
         if(pacienteDTO.getNome() != null) paciente.setNome(pacienteDTO.getNome());
         if(pacienteDTO.getSobrenome() != null) paciente.setSobrenome(pacienteDTO.getSobrenome());
