@@ -73,7 +73,7 @@ public class SolicitacaoConsultaService {
         Paciente paciente = solicitacaoConsulta.getPaciente();
         Medico medico = solicitacaoConsulta.getMedico();
 
-        if(solicitacaoConsulta.getInicioDaConsulta() != null && solicitacaoConsultaDTO.getFimDaConsulta() != null){
+        if(solicitacaoConsultaDTO.getInicioDaConsulta() != null && solicitacaoConsultaDTO.getFimDaConsulta() != null){
 
             // verificar se o horário de consulta está disponível
             if(!medico.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new RuntimeException();
