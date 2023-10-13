@@ -3,7 +3,6 @@ package com.joaolucas.hospitalJJ.services;
 import com.joaolucas.hospitalJJ.models.dto.ConsultaDTO;
 import com.joaolucas.hospitalJJ.models.entities.Consulta;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
-import com.joaolucas.hospitalJJ.models.entities.Paciente;
 import com.joaolucas.hospitalJJ.models.enums.Status;
 import com.joaolucas.hospitalJJ.repositories.ConsultaRepository;
 import lombok.RequiredArgsConstructor;
