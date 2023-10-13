@@ -88,14 +88,4 @@ public class Medico extends User implements Serializable {
     public int hashCode() {
         return Objects.hash(consultas, especialidades, numeroRegistro, solicitacoesConsulta);
     }
-
-    @Override
-    public String toString() {
-        return "Medico{" +
-                "consultas=" + consultas +
-                ", especialidades=" + especialidades +
-                ", numeroRegistro='" + numeroRegistro + '\'' +
-                ", solicitacoesConsulta=" + solicitacoesConsulta +
-                '}';
-    }
 }

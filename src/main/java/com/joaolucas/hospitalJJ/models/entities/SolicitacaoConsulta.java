@@ -122,25 +122,11 @@ public class SolicitacaoConsulta implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SolicitacaoConsulta that = (SolicitacaoConsulta) o;
-        return Objects.equals(id, that.id) && Objects.equals(paciente, that.paciente) && Objects.equals(medico, that.medico) && Objects.equals(motivoDaConsulta, that.motivoDaConsulta) && Objects.equals(especialidade, that.especialidade) && Objects.equals(inicioDaConsulta, that.inicioDaConsulta) && Objects.equals(fimDaConsulta, that.fimDaConsulta) && status == that.status;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, paciente, medico, motivoDaConsulta, especialidade, inicioDaConsulta, fimDaConsulta, status);
-    }
-
-    @Override
-    public String toString() {
-        return "SolicitacaoConsulta{" +
-                "id=" + id +
-                ", paciente=" + paciente +
-                ", medico=" + medico +
-                ", motivoDaConsulta='" + motivoDaConsulta + '\'' +
-                ", especialidade=" + especialidade +
-                ", inicioDaConsulta=" + inicioDaConsulta +
-                ", fimDaConsulta=" + fimDaConsulta +
-                ", status=" + status +
-                '}';
+        return Objects.hash(id);
     }
 }

@@ -92,27 +92,15 @@ public class Especialidade implements Serializable {
     }
 
     @Override
-    public String toString() {
-        return "Especialidade{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", medicos=" + medicos +
-                ", consultas=" + consultas +
-                ", solicitacoesConsulta=" + solicitacoesConsulta +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Especialidade that = (Especialidade) o;
-        return Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(medicos, that.medicos) && Objects.equals(consultas, that.consultas) && Objects.equals(solicitacoesConsulta, that.solicitacoesConsulta);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome, descricao, medicos, consultas, solicitacoesConsulta);
+        return Objects.hash(id);
     }
 }

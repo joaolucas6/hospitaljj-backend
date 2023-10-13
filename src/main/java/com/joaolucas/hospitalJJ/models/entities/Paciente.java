@@ -57,12 +57,4 @@ public class Paciente extends User implements Serializable {
     public int hashCode() {
         return Objects.hash(consultas, solicitacoesDeConsulta);
     }
-
-    @Override
-    public String toString() {
-        return "Paciente{" +
-                "consultas=" + consultas +
-                ", solicitacoesDeConsulta=" + solicitacoesDeConsulta +
-                '}';
-    }
 }

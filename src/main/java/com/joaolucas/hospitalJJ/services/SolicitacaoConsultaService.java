@@ -57,6 +57,7 @@ public class SolicitacaoConsultaService {
 
         paciente.getSolicitacoesDeConsulta().add(solicitacaoConsultaSalva);
         medico.getSolicitacoesConsulta().add(solicitacaoConsultaSalva);
+        especialidade.getSolicitacoesConsulta().add(solicitacaoConsultaSalva);
 
         pacienteRepository.save(paciente);
         medicoRepository.save(medico);
@@ -69,11 +70,9 @@ public class SolicitacaoConsultaService {
 
         if(solicitacaoConsulta.getStatus() == Status.ACEITO || solicitacaoConsulta.getStatus() == Status.NEGADO) throw new RuntimeException();
 
-        Paciente paciente = pacienteRepository.findById(solicitacaoConsultaDTO.getPacienteId()).orElseThrow();
-        Medico medico = medicoRepository.findById(solicitacaoConsultaDTO.getMedicoId()).orElseThrow();
+        Paciente paciente = solicitacaoConsulta.getPaciente();
+        Medico medico = solicitacaoConsulta.getMedico();
 
-
-        // na hora da requisição deverá sempre mandar o horário de inicio e fim da consulta
         if(solicitacaoConsulta.getInicioDaConsulta() != null && solicitacaoConsultaDTO.getFimDaConsulta() != null){
 
             // verificar se o horário de consulta está disponível

@@ -159,29 +159,14 @@ public class Consulta implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Consulta consulta = (Consulta) o;
-        return Objects.equals(id, consulta.id) && Objects.equals(dataDeCriacao, consulta.dataDeCriacao) && Objects.equals(medico, consulta.medico) && Objects.equals(paciente, consulta.paciente) && Objects.equals(especialidade, consulta.especialidade) && Objects.equals(preco, consulta.preco) && status == consulta.status && Objects.equals(receitaMedica, consulta.receitaMedica) && Objects.equals(observacoesMedica, consulta.observacoesMedica) && Objects.equals(horarioInicio, consulta.horarioInicio) && Objects.equals(horarioTermino, consulta.horarioTermino);
+        return Objects.equals(id, consulta.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dataDeCriacao, medico, paciente, especialidade, preco, status, receitaMedica, observacoesMedica, horarioInicio, horarioTermino);
-    }
-
-    @Override
-    public String toString() {
-        return "Consulta{" +
-                "id=" + id +
-                ", dataDeCriacao=" + dataDeCriacao +
-                ", medico=" + medico +
-                ", paciente=" + paciente +
-                ", especialidade=" + especialidade +
-                ", preco=" + preco +
-                ", status=" + status +
-                ", receitaMedica='" + receitaMedica + '\'' +
-                ", observacoesMedica='" + observacoesMedica + '\'' +
-                ", horarioInicio=" + horarioInicio +
-                ", horarioTermino=" + horarioTermino +
-                '}';
+        return Objects.hash(id);
     }
 }
+
+
 
