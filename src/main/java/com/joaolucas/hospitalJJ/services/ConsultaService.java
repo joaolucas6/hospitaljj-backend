@@ -30,6 +30,7 @@ public class ConsultaService {
         if(consultaDTO.getPreco() != null) consulta.setPreco(consultaDTO.getPreco());
         if(consultaDTO.getReceitaMedica() != null) consulta.setReceitaMedica(consultaDTO.getReceitaMedica());
         if(consultaDTO.getObservacoesMedica() != null) consulta.setObservacoesMedica(consultaDTO.getObservacoesMedica());
+        if(consultaDTO.getStatus() != null) consulta.setStatus(consultaDTO.getStatus());
 
         if(consultaDTO.getHorarioInicio() != null && consultaDTO.getHorarioTermino() != null){
 
