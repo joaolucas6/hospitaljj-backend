@@ -72,7 +72,6 @@ public class SolicitacaoConsultaService {
 
         if(solicitacaoConsulta.getStatus() == Status.ACEITO || solicitacaoConsulta.getStatus() == Status.NEGADO) throw new BusinessLogicException("Não é possível atualizar a solicitação de consulta devido ao seu status");
 
-        Paciente paciente = solicitacaoConsulta.getPaciente();
         Medico medico = solicitacaoConsulta.getMedico();
 
         if(solicitacaoConsultaDTO.getInicioDaConsulta() != null && solicitacaoConsultaDTO.getFimDaConsulta() != null){
