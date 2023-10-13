@@ -90,7 +90,7 @@ public class SolicitacaoConsultaService {
             Especialidade especialidadeDesejada = especialidadeRepository.findById(solicitacaoConsultaDTO.getEspecialidadeId()).orElseThrow();
             if(!medico.getEspecialidades().contains(especialidadeDesejada)) throw new RuntimeException();
 
-            // cruzeiro esporte clube
+            solicitacaoConsulta.getEspecialidade().getSolicitacoesConsulta().remove(solicitacaoConsulta);
 
             solicitacaoConsulta.setEspecialidade(especialidadeDesejada);
         }
