@@ -1,5 +1,8 @@
 package com.joaolucas.hospitalJJ.services;
 
+import com.joaolucas.hospitalJJ.exceptions.BadRequestException;
+import com.joaolucas.hospitalJJ.exceptions.BusinessLogicException;
+import com.joaolucas.hospitalJJ.exceptions.ResourceNotFoundException;
 import com.joaolucas.hospitalJJ.models.dto.SolicitacaoConsultaDTO;
 import com.joaolucas.hospitalJJ.models.entities.*;
 import com.joaolucas.hospitalJJ.models.enums.Status;
@@ -26,22 +29,21 @@ public class SolicitacaoConsultaService {
     }
 
     public SolicitacaoConsultaDTO encontrarPorId(Long id){
-        return new SolicitacaoConsultaDTO(solicitacaoConsultaRepository.findById(id).orElseThrow());
+        return new SolicitacaoConsultaDTO(solicitacaoConsultaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Solicitação de consulta não foi encontrada com ID: " + id)));
     }
 
     public SolicitacaoConsultaDTO criar(SolicitacaoConsultaDTO solicitacaoConsultaDTO){
-        if(!ValidacaoDeDados.validarDadosDaSolicitacaoDeConsulta(solicitacaoConsultaDTO)) throw new RuntimeException();
-        if(solicitacaoConsultaDTO.getMedicoId() == null || solicitacaoConsultaDTO.getPacienteId() == null) throw new RuntimeException();
+        if(!ValidacaoDeDados.validarDadosDaSolicitacaoDeConsulta(solicitacaoConsultaDTO)) throw new BadRequestException("Dados da solicitação de consulta são inválidos");
+        if(solicitacaoConsultaDTO.getMedicoId() == null || solicitacaoConsultaDTO.getPacienteId() == null) throw new BadRequestException("Id do médico e do paciente não devem ser nulos");
 
-        Paciente paciente = pacienteRepository.findById(solicitacaoConsultaDTO.getPacienteId()).orElseThrow();
-        Medico medico = medicoRepository.findById(solicitacaoConsultaDTO.getMedicoId()).orElseThrow();
-        Especialidade especialidade = especialidadeRepository.findById(solicitacaoConsultaDTO.getEspecialidadeId()).orElseThrow();
+        Paciente paciente = pacienteRepository.findById(solicitacaoConsultaDTO.getPacienteId()).orElseThrow(() -> new ResourceNotFoundException("Paciente não foi encontrado com ID: " + solicitacaoConsultaDTO.getPacienteId()));
+        Medico medico = medicoRepository.findById(solicitacaoConsultaDTO.getMedicoId()).orElseThrow(() -> new ResourceNotFoundException("Médico não foi encontrado com ID: " + solicitacaoConsultaDTO.getMedicoId()));
+        Especialidade especialidade = especialidadeRepository.findById(solicitacaoConsultaDTO.getEspecialidadeId()).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + solicitacaoConsultaDTO.getEspecialidadeId()));
 
-        if(!especialidade.getMedicos().contains(medico) || !medico.getEspecialidades().contains(especialidade)) throw new RuntimeException();
+        if(!especialidade.getMedicos().contains(medico) || !medico.getEspecialidades().contains(especialidade)) throw new BusinessLogicException("Médico não domina a dada especialidade");
 
         // verificar se o horário de consulta está disponível
-        if(!medico.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new RuntimeException();
-        if(!paciente.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new RuntimeException();
+        if(!medico.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new BusinessLogicException("O horário não está disponível");
 
         SolicitacaoConsulta solicitacaoConsulta = new SolicitacaoConsulta();
 
@@ -66,9 +68,9 @@ public class SolicitacaoConsultaService {
     }
 
     public SolicitacaoConsultaDTO atualizar(Long solicitacaoId, SolicitacaoConsultaDTO solicitacaoConsultaDTO){
-        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow();
+        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow(() -> new ResourceNotFoundException("Solicitação de consulta não foi encontrada com ID: " + solicitacaoId));
 
-        if(solicitacaoConsulta.getStatus() == Status.ACEITO || solicitacaoConsulta.getStatus() == Status.NEGADO) throw new RuntimeException();
+        if(solicitacaoConsulta.getStatus() == Status.ACEITO || solicitacaoConsulta.getStatus() == Status.NEGADO) throw new BusinessLogicException("Não é possível atualizar a solicitação de consulta devido ao seu status");
 
         Paciente paciente = solicitacaoConsulta.getPaciente();
         Medico medico = solicitacaoConsulta.getMedico();
@@ -76,8 +78,7 @@ public class SolicitacaoConsultaService {
         if(solicitacaoConsultaDTO.getInicioDaConsulta() != null && solicitacaoConsultaDTO.getFimDaConsulta() != null){
 
             // verificar se o horário de consulta está disponível
-            if(!medico.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new RuntimeException();
-            if(!paciente.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new RuntimeException();
+            if(!medico.getConsultas().stream().filter(c -> solicitacaoConsultaDTO.getInicioDaConsulta().isAfter(c.getHorarioInicio()) && solicitacaoConsultaDTO.getFimDaConsulta().isBefore(c.getHorarioTermino())).toList().isEmpty()) throw new BusinessLogicException("O horário não está disponível");
 
             solicitacaoConsulta.setInicioDaConsulta(solicitacaoConsultaDTO.getInicioDaConsulta());
             solicitacaoConsulta.setFimDaConsulta(solicitacaoConsultaDTO.getFimDaConsulta());
@@ -87,7 +88,7 @@ public class SolicitacaoConsultaService {
 
         if(solicitacaoConsultaDTO.getEspecialidadeId() != null){
             Especialidade especialidadeDesejada = especialidadeRepository.findById(solicitacaoConsultaDTO.getEspecialidadeId()).orElseThrow();
-            if(!medico.getEspecialidades().contains(especialidadeDesejada)) throw new RuntimeException();
+            if(!medico.getEspecialidades().contains(especialidadeDesejada)) throw new BusinessLogicException("O médico não domina a dada especialidade");
 
             solicitacaoConsulta.getEspecialidade().getSolicitacoesConsulta().remove(solicitacaoConsulta);
 
@@ -98,15 +99,15 @@ public class SolicitacaoConsultaService {
     }
 
     public void deletar(Long id){
-        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(id).orElseThrow();
+        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Solicitação de consulta não foi encontrada com ID: " + id));
 
-        if(solicitacaoConsulta.getStatus() != Status.PENDENTE) throw new RuntimeException();
+        if(solicitacaoConsulta.getStatus() != Status.PENDENTE) throw new BusinessLogicException("A solicitação de consulta não pode ser deletada devido ao seu status");
 
         solicitacaoConsultaRepository.delete(solicitacaoConsulta);
     }
 
     public void aceitarSolicitacao(Long solicitacaoId){
-        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow();
+        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow(() -> new ResourceNotFoundException("Solicitação de consulta não foi encontrada com ID: " + solicitacaoId));
         Paciente paciente = solicitacaoConsulta.getPaciente();
         Medico medico = solicitacaoConsulta.getMedico();
         Especialidade especialidade = solicitacaoConsulta.getEspecialidade();
@@ -135,7 +136,7 @@ public class SolicitacaoConsultaService {
     }
 
     public void negarSolicitacao(Long solicitacaoId){
-        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow();
+        SolicitacaoConsulta solicitacaoConsulta = solicitacaoConsultaRepository.findById(solicitacaoId).orElseThrow(() -> new ResourceNotFoundException("Solicitação de consulta não foi encontrada com ID: " + solicitacaoId));
         solicitacaoConsulta.setStatus(Status.NEGADO);
 
         solicitacaoConsultaRepository.save(solicitacaoConsulta);
