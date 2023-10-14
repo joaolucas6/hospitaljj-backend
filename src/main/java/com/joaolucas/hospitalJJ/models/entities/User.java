@@ -15,13 +15,13 @@ public abstract class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "nome")
+    @Column(name = "nome", length = 50)
     private String nome;
-    @Column(name = "sobrenome")
+    @Column(name = "sobrenome", length = 50)
     private String sobrenome;
     @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
-    @Column(name = "cpf")
+    @Column(name = "cpf", length = 11)
     private String cpf;
     @Enumerated(EnumType.STRING)
     private Genero genero;
@@ -29,7 +29,7 @@ public abstract class User {
     private String email;
     @Column(name = "senha")
     private String senha;
-    @Column(name = "numero_telefone")
+    @Column(name = "numero_telefone", length = 11)
     private String numeroTelefone;
     @Enumerated(EnumType.STRING)
     private Role role;

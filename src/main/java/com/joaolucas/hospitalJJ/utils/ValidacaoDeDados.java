@@ -17,7 +17,7 @@ public class ValidacaoDeDados {
         if(medicoDTO.getEmail() != null && !validarEmail(medicoDTO.getEmail())) return false;
         if(medicoDTO.getCpf() != null && !validarCpf(medicoDTO.getCpf())) return false;
         if(medicoDTO.getDataNascimento() != null && medicoDTO.getDataNascimento().isAfter(LocalDate.now())) return false;
-        if(medicoDTO.getNumeroTelefone() != null && medicoDTO.getNumeroTelefone().length() != 9 || medicoDTO.getNumeroTelefone() != null &&  medicoDTO.getNumeroTelefone().isBlank()) return false;
+        if(medicoDTO.getNumeroTelefone() != null && medicoDTO.getNumeroTelefone().length() != 11 || medicoDTO.getNumeroTelefone() != null &&  medicoDTO.getNumeroTelefone().isBlank()) return false;
         return true;
     }
 
