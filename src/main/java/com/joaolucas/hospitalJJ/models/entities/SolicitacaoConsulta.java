@@ -23,7 +23,7 @@ public class SolicitacaoConsulta implements Serializable {
     @JoinColumn(name = "medico_id")
     private Medico medico;
 
-    @Column(name = "motivo_da_consulta")
+    @Column(name = "motivo_da_consulta", length = 500)
     private String motivoDaConsulta;
 
     @ManyToOne
