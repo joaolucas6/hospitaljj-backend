@@ -1,5 +1,8 @@
 package com.joaolucas.hospitalJJ.services;
 
+import com.joaolucas.hospitalJJ.exceptions.BadRequestException;
+import com.joaolucas.hospitalJJ.exceptions.BusinessLogicException;
+import com.joaolucas.hospitalJJ.exceptions.ResourceNotFoundException;
 import com.joaolucas.hospitalJJ.models.dto.EspecialidadeDTO;
 import com.joaolucas.hospitalJJ.models.entities.Especialidade;
 import com.joaolucas.hospitalJJ.models.entities.Medico;
@@ -23,11 +26,11 @@ public class EspecialidadeService {
     }
 
     public EspecialidadeDTO encontrarPorId(Long id){
-        return new EspecialidadeDTO(especialidadeRepository.findById(id).orElseThrow());
+        return new EspecialidadeDTO(especialidadeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + id)));
     }
 
     public EspecialidadeDTO criar(EspecialidadeDTO especialidadeDTO){
-        if(!ValidacaoDeDados.validarDadosDaEspecialidade(especialidadeDTO)) throw new RuntimeException();
+        if(!ValidacaoDeDados.validarDadosDaEspecialidade(especialidadeDTO)) throw new BadRequestException("Dados da especialidade são inválidos");
 
         Especialidade especialidade = new Especialidade();
         especialidade.setNome(especialidadeDTO.getNome());
@@ -37,8 +40,8 @@ public class EspecialidadeService {
     }
 
     public EspecialidadeDTO atualizar(Long id, EspecialidadeDTO especialidadeDTO){
-        if(!ValidacaoDeDados.validarDadosDaEspecialidade(especialidadeDTO)) throw new RuntimeException();
-        Especialidade especialidade = especialidadeRepository.findById(id).orElseThrow();
+        if(!ValidacaoDeDados.validarDadosDaEspecialidade(especialidadeDTO)) throw new BadRequestException("Dados da especialidade são inválidos");
+        Especialidade especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + id));
 
         if(especialidadeDTO.getNome() != null) especialidade.setNome(especialidadeDTO.getNome());
         if(especialidadeDTO.getDescricao() != null) especialidade.setDescricao(especialidadeDTO.getDescricao());
@@ -47,15 +50,15 @@ public class EspecialidadeService {
     }
 
     public void deletar(Long id){
-        Especialidade especialidade = especialidadeRepository.findById(id).orElseThrow();
+        Especialidade especialidade = especialidadeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + id));
         especialidadeRepository.delete(especialidade);
     }
 
     public void adicionarMedico(Long especialidadeId, Long medicoId){
-        Especialidade especialidade = especialidadeRepository.findById(especialidadeId).orElseThrow();
-        Medico medico = medicoRepository.findById(medicoId).orElseThrow();
+        Especialidade especialidade = especialidadeRepository.findById(especialidadeId).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + especialidadeId));
+        Medico medico = medicoRepository.findById(medicoId).orElseThrow(() -> new ResourceNotFoundException("Médico não foi encontrado com ID: " + medicoId));
 
-        if(especialidade.getMedicos().contains(medico) || medico.getEspecialidades().contains(especialidade)) throw new RuntimeException();
+        if(especialidade.getMedicos().contains(medico) || medico.getEspecialidades().contains(especialidade)) throw new BusinessLogicException("Médico já possui a dada especialidade");
 
         medico.getEspecialidades().add(especialidade);
         especialidade.getMedicos().add(medico);
@@ -65,10 +68,10 @@ public class EspecialidadeService {
     }
 
     public void removerMedico(Long especialidadeId, Long medicoId){
-        Especialidade especialidade = especialidadeRepository.findById(especialidadeId).orElseThrow();
-        Medico medico = medicoRepository.findById(medicoId).orElseThrow();
+        Especialidade especialidade = especialidadeRepository.findById(especialidadeId).orElseThrow(() -> new ResourceNotFoundException("Especialidade não foi encontrada com ID: " + especialidadeId));
+        Medico medico = medicoRepository.findById(medicoId).orElseThrow(() -> new ResourceNotFoundException("Médico não foi encontrado com ID: " + medicoId));
 
-        if(!especialidade.getMedicos().contains(medico) || !medico.getEspecialidades().contains(especialidade)) throw new RuntimeException();
+        if(!especialidade.getMedicos().contains(medico) || !medico.getEspecialidades().contains(especialidade)) throw new BusinessLogicException("Médico não possui a dada especialidade");
 
         medico.getEspecialidades().remove(especialidade);
         especialidade.getMedicos().remove(medico);
