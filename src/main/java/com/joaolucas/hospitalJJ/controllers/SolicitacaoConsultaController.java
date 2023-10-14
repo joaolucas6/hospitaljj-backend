@@ -52,5 +52,5 @@ public class SolicitacaoConsultaController {
         solicitacaoConsultaService.negarSolicitacao(solicitacaoId);
         return ResponseEntity.ok().build();
     }
-    
+
 }
