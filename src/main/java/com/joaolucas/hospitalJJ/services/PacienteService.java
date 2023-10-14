@@ -1,5 +1,7 @@
 package com.joaolucas.hospitalJJ.services;
 
+import com.joaolucas.hospitalJJ.exceptions.BadRequestException;
+import com.joaolucas.hospitalJJ.exceptions.ResourceNotFoundException;
 import com.joaolucas.hospitalJJ.models.dto.PacienteDTO;
 import com.joaolucas.hospitalJJ.models.entities.Paciente;
 import com.joaolucas.hospitalJJ.repositories.PacienteRepository;
@@ -20,11 +22,11 @@ public class PacienteService {
     }
 
     public PacienteDTO encontrarPorId(Long id){
-        return new PacienteDTO(pacienteRepository.findById(id).orElseThrow());
+        return new PacienteDTO(pacienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Paciente não foi encontrado com ID: " + id)));
     }
 
     public PacienteDTO atualizar(Long id, PacienteDTO pacienteDTO){
-        if(!ValidacaoDeDados.validarDadosDoUser(pacienteDTO)) throw new RuntimeException();
+        if(!ValidacaoDeDados.validarDadosDoUser(pacienteDTO)) throw new BadRequestException("Os dados do paciente são inválidos");
 
         Paciente paciente = pacienteRepository.findById(id).orElseThrow();
         if(pacienteDTO.getNome() != null) paciente.setNome(pacienteDTO.getNome());
@@ -38,7 +40,7 @@ public class PacienteService {
     }
 
     public void deletar(Long id){
-        Paciente paciente = pacienteRepository.findById(id).orElseThrow();
+        Paciente paciente = pacienteRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Paciente não foi encontrado com ID: " + id));
         pacienteRepository.delete(paciente);
     }
 }
