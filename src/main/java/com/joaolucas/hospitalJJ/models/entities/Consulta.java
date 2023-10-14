@@ -37,10 +37,10 @@ public class Consulta implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "receita_medica")
+    @Column(name = "receita_medica", length = 1000)
     private String receitaMedica;
 
-    @Column(name = "observacoes_medica")
+    @Column(name = "observacoes_medica", length = 1000)
     private String observacoesMedica;
 
     @Column(name = "horario_inicio")
