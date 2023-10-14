@@ -33,7 +33,7 @@ public class SolicitacaoConsulta implements Serializable {
     @Column(name = "inicio_da_consulta")
     private LocalDateTime inicioDaConsulta;
 
-    @Column(name = "inicio_da_consulta")
+    @Column(name = "fim_da_consulta")
     private LocalDateTime fimDaConsulta;
 
     @Enumerated(EnumType.STRING)
