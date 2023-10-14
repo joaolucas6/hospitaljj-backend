@@ -15,10 +15,10 @@ public class Especialidade implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nome")
+    @Column(name = "nome", length = 50)
     private String nome;
 
-    @Column(name = "descricao")
+    @Column(name = "descricao", length = 500)
     private String descricao;
 
     @ManyToMany
