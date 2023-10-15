@@ -41,13 +41,13 @@ public class SolicitacaoConsultaController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/aceitar-solicitacao")
+    @PostMapping("/{solicitacaoId}/aceitar-solicitacao")
     public ResponseEntity<Void> aceitarSolicitacao(@PathVariable Long solicitacaoId){
         solicitacaoConsultaService.aceitarSolicitacao(solicitacaoId);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/negar-solicitacao")
+    @PostMapping("/{solicitacaoId}/negar-solicitacao")
     public ResponseEntity<Void> negarSolicitacao(@PathVariable Long solicitacaoId){
         solicitacaoConsultaService.negarSolicitacao(solicitacaoId);
         return ResponseEntity.ok().build();

@@ -3,6 +3,7 @@ package com.joaolucas.hospitalJJ.config;
 import com.joaolucas.hospitalJJ.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -31,8 +32,43 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/api/v1/autenticacao/**")
+                        .permitAll()
+
+                        .requestMatchers("/api/v1/solicitacao-de-consulta/**/aceitar-solicitacao", "/api/v1/solicitacao-de-consulta/**/negar-solicitacao")
+                        .hasAnyRole("ADMIN", "MEDICO")
+
+                        .requestMatchers("/api/v1/pacientes/**")
+                        .hasAnyRole("ADMIN", "PACIENTE")
+
+                        .requestMatchers("/api/v1/medicos/**")
+                        .hasAnyRole("ADMIN", "MEDICO")
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/especialidades/**")
+                        .hasAnyRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/especialidades/**")
+                        .hasAnyRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/especialidades/**")
+                        .hasAnyRole("ADMIN")
+
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/consultas/**")
+                        .hasAnyRole("ADMIN", "MEDICO")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/consultas/**")
+                        .hasAnyRole("ADMIN", "MEDICO")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/admins/**")
+                        .hasAnyRole("ADMIN")
+
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/admins/**")
+                        .hasAnyRole("ADMIN")
+
                         .anyRequest()
                         .authenticated()
+
                 )
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

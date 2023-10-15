@@ -31,5 +31,5 @@ public class AutenticacaoController {
     public ResponseEntity<String> autenticar(@RequestBody AuthenticationRequest request){
         return ResponseEntity.ok(autenticacaoService.autenticar(request));
     }
-    
+
 }
