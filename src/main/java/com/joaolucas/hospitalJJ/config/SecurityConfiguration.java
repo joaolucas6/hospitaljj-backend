@@ -40,7 +40,7 @@ public class SecurityConfiguration {
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
 
                 .authenticationProvider(authenticationProvider())
-                
+
                 .build();
     }
 
