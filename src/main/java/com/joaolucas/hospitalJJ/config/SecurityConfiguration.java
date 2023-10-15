@@ -32,7 +32,19 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/autenticacao/**")
+
+                        .requestMatchers("/api/v1/autenticacao/**",
+                                "/v2/api-docs",
+                                "/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-resources",
+                                "/swagger-resources/**",
+                                "/configuration/ui",
+                                "/configuration/security",
+                                "/swagger-ui/**",
+                                "/webjars/**",
+                                "/swagger-ui.html"
+                        )
                         .permitAll()
 
                         .requestMatchers("/api/v1/solicitacao-de-consulta/*/aceitar-solicitacao", "/api/v1/solicitacao-de-consulta/*/negar-solicitacao")
