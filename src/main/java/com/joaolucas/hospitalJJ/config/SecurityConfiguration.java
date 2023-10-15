@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                         .requestMatchers("/api/v1/autenticacao/**")
                         .permitAll()
 
-                        .requestMatchers("/api/v1/solicitacao-de-consulta/**/aceitar-solicitacao", "/api/v1/solicitacao-de-consulta/**/negar-solicitacao")
+                        .requestMatchers("/api/v1/solicitacao-de-consulta/*/aceitar-solicitacao", "/api/v1/solicitacao-de-consulta/*/negar-solicitacao")
                         .hasAnyRole("ADMIN", "MEDICO")
 
                         .requestMatchers("/api/v1/pacientes/**")
